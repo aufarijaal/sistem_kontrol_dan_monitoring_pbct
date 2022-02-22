@@ -21,7 +21,14 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --}}
-
+    <style>
+        #stepUpJam, #stepDownJam, #stepUpMenit, #stepDownMenit {
+            background-color: #5893FA;
+        }
+        #btnSubmitTimer {
+            background-color: #54E8B2;
+        }
+    </style>
 </head>
 <body style="background-color: #F7F8FA">
     <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -45,24 +52,32 @@
       <div class="modal" id="timePickModal" tabindex="-1" aria-labelledby="timePickModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Timer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
-                <form action="" method="post" class="d-flex flex-column justify-content-center align-items-center gap-3">
+                <form action="{{ route('machinetoggle') }}" method="post" class="d-flex flex-column justify-content-center align-items-center gap-3">
                     @csrf
                     <div class="d-flex flex-row gap-3">
-                        <div class="d-flex flex-column gap-1" style="width: 50px">
-                            <button type="button" class="btn btn-info shadow-none" id="stepUpJam" ><i class="bi bi-caret-up-fill"></i></button>
+                        <div class="d-flex flex-column gap-1 text-center" style="width: 50px">
+                            Jam
+                            <button type="button" class="btn shadow-none" id="stepUpJam" ><i class="bi bi-caret-up-fill"></i></button>
                             <span class="align-self-center" id="textJam">0</span>
                             <input type="number" name="timerJam" id="timerJam" class="d-none" min="0" max="99">
-                            <button type="button" class="btn btn-info shadow-none" id="stepDownJam" ><i class="bi bi-caret-down-fill"></i></button>
+                            <button type="button" class="btn shadow-none" id="stepDownJam" ><i class="bi bi-caret-down-fill"></i></button>
                         </div>
-                        <div class="d-flex flex-column gap-1" style="width: 50px">
-                            <button type="button" class="btn btn-info shadow-none" id="stepUpMenit" ><i class="bi bi-caret-up-fill"></i></button>
+                        <div class="d-flex flex-column gap-1 text-center" style="width: 50px">
+                            Menit
+                            <button type="button" class="btn shadow-none" id="stepUpMenit" ><i class="bi bi-caret-up-fill"></i></button>
                             <span class="align-self-center" id="textMenit">0</span>
                             <input type="number" name="timerMenit" id="timerMenit" class="d-none" min="0" max="99">
-                            <button type="button" class="btn btn-info shadow-none" id="stepDownMenit" ><i class="bi bi-caret-down-fill"></i></button>
+                            <button type="button" class="btn shadow-none" id="stepDownMenit" ><i class="bi bi-caret-down-fill"></i></button>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success shadow-none">OK</button>
+                    <button type="submit" class="btn shadow-none" id="btnSubmitTimer">OK</button>
                 </form>
             </div>
           </div>
@@ -153,31 +168,44 @@
         const textMenit = document.getElementById('textMenit')
         const inputJam = document.getElementById('timerJam')
         const inputMenit = document.getElementById('timerMenit')
+        const btnSubmitTimer = document.getElementById('btnSubmitTimer')
 
+        btnSubmitTimer.addEventListener('click', () => {
+            btnSubmitTimer.preventDefault()
+        })
         btnOnOffBlender.addEventListener('click', () => {
             btnOnOffBlender.classList.toggle('onOffBlender-on')
 
             if(btnOnOffBlender.classList.contains('onOffBlender-on')) {
-                btnOnOffBlender.style.backgroundImage = 'url(http://127.0.0.1:8000/images/fan-on.svg) center center no-repeat';
+                btnOnOffBlender.style.backgroundImage = 'url({!! asset('images/fan-on.svg') !!}) center center no-repeat';
 
             }else {
-                btnOnOffBlender.style.backgroundImage = 'url(http://127.0.0.1:8000/images/fan.svg) center center no-repeat';
+                btnOnOffBlender.style.backgroundImage = 'url({!! asset('images/fan-on.svg') !!}) center center no-repeat';
             }
         })
 
-        function stepUpJam() {
+        // btnStepUpJam.addEventListener('click', () => {
+        //     inputJam.stepUp()
+        //     textJam.innerText = inputJam.value
+        // })
+        btnStepUpJam.addEventListener('mousedown', () => {
             inputJam.stepUp()
             textJam.innerText = inputJam.value
-        }
-        function stepDownJam() {
+        })
+        btnStepDownJam.addEventListener('click', () => {
+            inputJam.stepDown()
+            textJam.innerText = inputJam.value
+        })
 
-        }
-        function stepUpMenit() {
+        btnStepUpMenit.addEventListener('click', () => {
+            inputMenit.stepUp()
+            textMenit.innerText = inputMenit.value
+        })
+        btnStepDownMenit.addEventListener('click', () => {
+            inputMenit.stepDown()
+            textMenit.innerText = inputMenit.value
+        })
 
-        }
-        function stepDownMenit() {
-
-        }
     </script>
 </body>
 </html>
