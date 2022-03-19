@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PengaturanController extends Controller
 {
@@ -23,6 +24,6 @@ class PengaturanController extends Controller
      */
     public function index()
     {
-        return view('pengaturan');
+        return view('pengaturan')->with('email', auth()->user()->email);
     }
 }

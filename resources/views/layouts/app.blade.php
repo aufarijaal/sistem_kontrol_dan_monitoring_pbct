@@ -11,7 +11,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,15 +21,85 @@
 
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --}}
     <style>
+        html, body {
+            height: 100%;
+        }
         #stepUpJam, #stepDownJam, #stepUpMenit, #stepDownMenit {
             background-color: #5893FA;
         }
         #btnSubmitTimer {
             background-color: #54E8B2;
         }
+        .shadow-custom {
+            box-shadow: 0px 15px 40px 6px rgba(0, 0, 0, 0.06);
+            border-radius: 30px;
+        }
+        .btnSimpanPengaturan {
+            background-color: #5893FA
+        }
+        .rounded-custom {
+            border-radius: 1rem;
+        }
+        /* * {
+            border: 1px solid red;
+        } */
+        .text-green {
+            color: #54E8B2;
+        }
+        .text-slate {
+            color: #1A1D27;
+        }
+        .text-blue{
+            color: #5893FA;
+        }
+        .border-blue {
+            border-color: #5893FA;
+        }
+        .text-orange {
+            color: #FE804D;
+        }
+        .text-yellow {
+            color: #F5C642;
+        }
+        .bg-custom-gray {
+            background-color: #F1F5F9;
+        }
+        .bg-custom-indigo {
+            background-color: #9584F5;
+        }
+        .mb-10 {
+            margin-bottom: 8rem;
+        }
+        .jb {
+            justify-content: space-between;
+        }
+        // X-Small devices (portrait phones, less than 576px)
+        // No media query for `xs` since this is the default in Bootstrap
+
+        // Small devices (landscape phones, 576px and up)
+        @media (min-width: 576px) {
+            .infoStat {
+                margin-bottom: 300px;
+            }
+         }
+
+        // Medium devices (tablets, 768px and up)
+        @media (min-width: 768px) {
+            .infoStat {
+                margin-bottom: 0px;
+            }
+         }
+
+        // Large devices (desktops, 992px and up)
+        @media (min-width: 992px) {
+            .infoStat {
+                margin-bottom: 0px;
+            }
+         }
     </style>
+    <script src="{{ asset('js/chartjs/dist/chart.js') }}"></script>
 </head>
-<body style="background-color: #F7F8FA">
+<body style="background-color: #F1F5F9">
     <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm">
           <div class="modal-content">
@@ -59,7 +128,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('machinetoggle') }}" method="post" class="d-flex flex-column justify-content-center align-items-center gap-3">
+                <form action="#" method="post" class="d-flex flex-column justify-content-center align-items-center gap-3">
                     @csrf
                     <div class="d-flex flex-row gap-3">
                         <div class="d-flex flex-column gap-1 text-center" style="width: 50px">
@@ -106,7 +175,7 @@
                 </ul>
             </nav>
             <!-- Side Navbar -->
-            <div class="row flex-nowrap">
+            <div class="row flex-nowrap side-navbar">
                 <div class="col-auto sidenav d-none d-md-block d-lg-block d-xl-block d-xxl-block">
                     <div class="d-flex px-1 text-white min-vh-100">
                         <ul class="nav d-flex flex-column justify-content-around align-items-center" id="menu">
@@ -158,54 +227,8 @@
             </main>
         @endguest
     </div>
-    <script>
-        const btnOnOffBlender = document.querySelector('.onOffBlender')
-        const btnStepUpJam = document.getElementById('stepUpJam')
-        const btnStepUpMenit = document.getElementById('stepUpMenit')
-        const btnStepDownJam = document.getElementById('stepDownJam')
-        const btnStepDownMenit = document.getElementById('stepDownMenit')
-        const textJam = document.getElementById('textJam')
-        const textMenit = document.getElementById('textMenit')
-        const inputJam = document.getElementById('timerJam')
-        const inputMenit = document.getElementById('timerMenit')
-        const btnSubmitTimer = document.getElementById('btnSubmitTimer')
-
-        btnSubmitTimer.addEventListener('click', () => {
-            btnSubmitTimer.preventDefault()
-        })
-        btnOnOffBlender.addEventListener('click', () => {
-            btnOnOffBlender.classList.toggle('onOffBlender-on')
-
-            if(btnOnOffBlender.classList.contains('onOffBlender-on')) {
-                btnOnOffBlender.style.backgroundImage = 'url({!! asset('images/fan-on.svg') !!}) center center no-repeat';
-
-            }else {
-                btnOnOffBlender.style.backgroundImage = 'url({!! asset('images/fan-on.svg') !!}) center center no-repeat';
-            }
-        })
-
-        // btnStepUpJam.addEventListener('click', () => {
-        //     inputJam.stepUp()
-        //     textJam.innerText = inputJam.value
-        // })
-        btnStepUpJam.addEventListener('mousedown', () => {
-            inputJam.stepUp()
-            textJam.innerText = inputJam.value
-        })
-        btnStepDownJam.addEventListener('click', () => {
-            inputJam.stepDown()
-            textJam.innerText = inputJam.value
-        })
-
-        btnStepUpMenit.addEventListener('click', () => {
-            inputMenit.stepUp()
-            textMenit.innerText = inputMenit.value
-        })
-        btnStepDownMenit.addEventListener('click', () => {
-            inputMenit.stepDown()
-            textMenit.innerText = inputMenit.value
-        })
-
-    </script>
+<script src="{{ asset('js/chart-setup.js') }}"></script>
+<script src="{{ asset('js/helpers.js') }}"></script>
+<script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

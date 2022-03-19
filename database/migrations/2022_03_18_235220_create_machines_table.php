@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('machine_stats', function (Blueprint $table) {
+        Schema::create('machines', function (Blueprint $table) {
             $table->id();
-            $table->boolean('isActive');
+            
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machine_stats');
+        Schema::dropIfExists('machines');
     }
 };
