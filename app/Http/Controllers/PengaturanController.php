@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class PengaturanController extends Controller
 {
@@ -24,6 +25,12 @@ class PengaturanController extends Controller
      */
     public function index()
     {
-        return view('pengaturan')->with('email', auth()->user()->email);
+        $machine = DB::table('machines')->where('userid', auth()->user()->id)->value('machineid');
+        $data = [
+            'email' => auth()->user()->email,
+            'machineid' => $machine
+        ];
+        // dd($data);
+        return view('pengaturan')->with($data);
     }
 }

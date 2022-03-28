@@ -14,8 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('machines', function (Blueprint $table) {
-            $table->id();
-            
+            $table->string('machineid')->unique()->primary();
+            $table->integer('userid')->nullable(true);
+            $table->boolean('isactive')->default(false);
+            $table->boolean('ishalus')->default(true);
+            $table->float('temperature')->default(0);
+            $table->float('stockhalus')->default(0);
+            $table->float('stockkasar')->default(0);
         });
     }
 

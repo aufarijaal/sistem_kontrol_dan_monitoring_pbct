@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StatController extends Controller
 {
@@ -13,7 +14,7 @@ class StatController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,21 @@ class StatController extends Controller
      */
     public function index()
     {
-        return view('stat');
+        $machineid = DB::table('machines')->where('userid', auth()->user()->id)->value('machineid');
+        return view('stat')->with('machineid', $machineid);
+    }
+
+    public function getStat(Request $request)
+    {
+        $harian = date(now()->startOfDay());
+        $mingguan = date(now()->startOfWeek());
+        $bulanan = date(now()->startOfMonth());
+
+        $result = DB::table('stats')
+                    ->select('weighthalus', 'weightkasar', 'created_at')
+                    ->where('machineid', 'sCNO_YnXOFAKID')
+                    ->whereBetween('created_at', [($request->option == 'harian') ? $harian : (($request->option == 'mingguan') ? $mingguan : $bulanan), date(now())])
+                    ->get();
+        return response()->json($result);
     }
 }

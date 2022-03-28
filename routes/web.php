@@ -20,4 +20,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/stat', [App\Http\Controllers\StatController::class, 'index'])->name('stat');
+
 Route::get('/pengaturan', [App\Http\Controllers\PengaturanController::class, 'index'])->name('pengaturan');
+Route::post('/pengaturan/koneksimesin', [App\Http\Controllers\MachineController::class, 'bindMachineWithUser'])->name('bindmachine');
+Route::post('/pengaturan/diskoneksimesin', [App\Http\Controllers\MachineController::class, 'unbindMachineFromUser'])->name('unbindmachine');
+
+

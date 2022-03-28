@@ -34,15 +34,15 @@
             box-shadow: 0px 15px 40px 6px rgba(0, 0, 0, 0.06);
             border-radius: 30px;
         }
-        .btnSimpanPengaturan {
-            background-color: #5893FA
-        }
         .rounded-custom {
             border-radius: 1rem;
         }
         /* * {
             border: 1px solid red;
         } */
+        .bg-custom-blue {
+            background-color: #5893FA;
+        }
         .text-green {
             color: #54E8B2;
         }
@@ -57,6 +57,9 @@
         }
         .text-orange {
             color: #FE804D;
+        }
+        .bg-orange {
+            background-color: #FE804D;
         }
         .text-yellow {
             color: #F5C642;
@@ -230,5 +233,6 @@
 <script src="{{ asset('js/chart-setup.js') }}"></script>
 <script src="{{ asset('js/helpers.js') }}"></script>
 <script src="{{ asset('js/script.js') }}"></script>
+
 </body>
 </html>

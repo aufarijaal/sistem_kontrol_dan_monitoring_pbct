@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $machineid = DB::table('machines')->where('userid', auth()->user()->id)->value('machineid');
+        return view('home')->with('machineid', $machineid);
     }
 }
