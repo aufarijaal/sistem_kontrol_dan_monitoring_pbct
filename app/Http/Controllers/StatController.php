@@ -31,13 +31,16 @@ class StatController extends Controller
     public function getStat(Request $request)
     {
         $harian = date(now()->startOfDay());
-        $mingguan = date(now()->startOfWeek());
-        $bulanan = date(now()->startOfMonth());
+        $mingguan = date(now()->subDays(7));
+        $bulanan = date(now()->subDays(30));
+        $bubuk = ($request->bubuk == 'kasar') ? 'weightkasar' : 'weighthalus';
 
         $result = DB::table('stats')
-                    ->select('weighthalus', 'weightkasar', 'created_at')
-                    ->where('machineid', 'sCNO_YnXOFAKID')
+                    ->select($bubuk, 'created_at')
+                    ->where('machineid', $request->machineid)
+                    ->where($bubuk, '>', 0)
                     ->whereBetween('created_at', [($request->option == 'harian') ? $harian : (($request->option == 'mingguan') ? $mingguan : $bulanan), date(now())])
+                    ->orderBy('created_at')
                     ->get();
         return response()->json($result);
     }
