@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class StatController extends Controller
@@ -24,8 +25,13 @@ class StatController extends Controller
      */
     public function index()
     {
-        $machineid = DB::table('machines')->where('userid', auth()->user()->id)->value('machineid');
-        return view('stat')->with('machineid', $machineid);
+        if(Auth::check())
+        {
+            $machineid = DB::table('machines')->where('userid', auth()->user()->id)->value('machineid');
+            return view('stat')->with('machineid', $machineid);
+        }else{
+            return redirect('/');
+        }
     }
 
     public function getStat(Request $request)
@@ -43,5 +49,16 @@ class StatController extends Controller
                     ->orderBy('created_at')
                     ->get();
         return response()->json($result);
+    }
+    // Dikirim oleh Microcontroller
+    public function newProduction(Request $request)
+    {
+        DB::table('stats')
+                    ->insert([
+                        'machineid' => 'sCNO_YnXOFAKID',
+                        'weighthalus' => $request->weighthalus,
+                        'weightkasar' => $request->weightkasar,
+                    ]);
+        return response()->noContent();
     }
 }

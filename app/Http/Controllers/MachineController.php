@@ -8,11 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 class MachineController extends Controller
 {
-    public function __construct()
+
+    public function sayHello()
     {
-
+        return response()->json([
+            "message" => "Hello there!"
+        ]);
     }
-
     public function getInfo(Request $request)
     {
         $result = DB::table('machines')
@@ -24,14 +26,23 @@ class MachineController extends Controller
         return response()->json($result);
     }
     // Dikirim oleh Microcontroller
-    public function sendInfo(Request $request)
+    public function sendStockUpdate(Request $request)
+    {
+        DB::table('machines')
+                    ->where('machineid', $request->machineid)
+                    ->update([
+                        'stockhalus' => $request->stockhalus,
+                        'stockkasar' => $request->stockkasar
+                    ]);
+        return response()->noContent();
+    }
+    // Dikirim oleh Microcontroller
+    public function sendTemp(Request $request)
     {
         DB::table('machines')
                     ->where('machineid', $request->machineid)
                     ->update([
                         'temperature' => $request->temperature,
-                        'stockhalus' => $request->stockhalus,
-                        'stockkasar' => $request->stockkasar
                     ]);
         return response()->noContent();
     }

@@ -22,9 +22,9 @@
             <div class="mt-4 mt-md-0">
                 <div class="form-group">
                   <select class="form-control shadow-none bg-white border-2 form-select rounded-custom" name="" id="filterWaktuStatistik">
-                    <option value="harian" harian>Harian</option>
-                    <option value="mingguan">Mingguan</option>
-                    <option value="bulanan">Bulanan</option>
+                    <option value="harian" harian>Hari ini</option>
+                    <option value="mingguan">7 Hari tkhr</option>
+                    <option value="bulanan">Bulan ini</option>
                   </select>
                 </div>
             </div>

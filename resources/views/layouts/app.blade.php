@@ -20,6 +20,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"> --}}
+    {{-- App Manifest --}}
+    <link rel="manifest" href="{{ asset('manifest.json') }}">
+    <meta name="theme-color" content="#F1F5F9">
     <style>
         html, body {
             height: 100%;
